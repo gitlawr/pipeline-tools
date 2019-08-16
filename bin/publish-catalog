@@ -84,6 +84,9 @@ envsubstFunc(){
   do
     if [[ -d $1"/"$file ]];then
       envsubstFunc $1"/"$file
+    elif [[ "$SUBSTITUTE_ALL" = "true" ]];then
+      envsubst < $1"/"$file > $1"/"$file.tmp
+      mv $1"/"$file.tmp $1"/"$file
     else
       envsubst '
       ${CICD_GIT_REPO_NAME}
