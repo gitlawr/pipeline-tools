@@ -13,6 +13,13 @@ $YAML_CONTENT
 EOF
 fi
 
+if [ -n "$KUBE_CONFIG" ]
+then
+cat <<EOF> ~/.kube/config
+$KUBE_CONFIG
+EOF
+fi
+
 if [ ! -f "$YAML_PATH" ]
 then
 	echo "File \"$YAML_PATH\" not found! "
