@@ -50,7 +50,11 @@ prepareFunc(){
   fi
   loginfo "prepare config done..."
 
-  rancher l -t $API_TOKEN --context $CICD_CLUSTER_ID:$CICD_PROJECT_ID --skip-verify $RANCHER_URL
+  if [[ -z "$PROJECT_ID" ]];then
+    PROJECT_ID="$CICD_CLUSTER_ID:$CICD_PROJECT_ID"
+  fi
+
+  rancher l -t $API_TOKEN --context "$PROJECT_ID" --skip-verify $RANCHER_URL
   checkerr
 
   loginfo "refreshing catalog"
